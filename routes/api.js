@@ -6,6 +6,14 @@ router.get("/api/workouts", (req, res) => {
   db.Workout.find({})
     .sort({ date: -1 })
     .then((workout) => {
+      // loop through to get total duration (BUG HERE)
+      workout.forEach((wkt) => {
+        let total = 0;
+        wkt.exercises.forEach((event) => {
+          total += event.duration;
+        });
+        wkt.totalDuration = total;
+      });
       res.json(workout);
     })
     .catch((err) => {
@@ -28,7 +36,9 @@ router.get("/api/workouts/range", (req, res) => {
 // add exercise
 router.put("/api/workouts/:id", (req, res) => {
   db.Workout.updateOne(
+    // update workout based on _id value
     { _id: req.params.id },
+    // update body
     {
       $push: {
         exercises: { ...req.body },
