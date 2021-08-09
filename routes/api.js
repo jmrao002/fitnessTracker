@@ -4,13 +4,12 @@ const router = require("express").Router();
 // get workouts
 router.get("/api/workouts", (req, res) => {
   db.Workout.find({})
-    .sort({ date: -1 })
     .then((workout) => {
-      // loop through to get total duration (BUG HERE)
+      // loop through to get total duration
       workout.forEach((wkt) => {
         let total = 0;
-        wkt.exercises.forEach((event) => {
-          total += event.duration;
+        wkt.exercises.forEach((e) => {
+          total += e.duration;
         });
         wkt.totalDuration = total;
       });
