@@ -4,6 +4,8 @@ Built by Michael Rao
 
 A full stack web application that allows users to enter and track workouts.
 
+![screenshot](/Users/mrao/Code/fitnessTracker/assets/images/screenshot.png)
+
 # Technologies Used
 
     - HTML
